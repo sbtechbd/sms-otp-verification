@@ -4,7 +4,8 @@
  * Plugin Name: SMS OTP Verification
  * Description: A plugin to send OTP via SMS for verification.
  * Version: 1.0
- * Author: Your Name
+ * Author: Surata Debnath
+ * Author Url:https://subrata6630.github.io 
  * Text Domain: sms-otp-verification
  */
 
@@ -26,6 +27,9 @@ function enqueue_otp_scripts()
 {
     wp_enqueue_script('otp-script', plugin_dir_url(__FILE__) . 'js/otp.js', array('jquery'), '1.0', true);
     wp_localize_script('otp-script', 'otp_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_enqueue_style('intl-tel-input-css', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css');
+    wp_enqueue_script('intl-tel-input-js', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js', array('jquery'), null, true);
+    wp_enqueue_script('intl-tel-input-utils-js', 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js', array('intl-tel-input-js'), null, true);
 }
 add_action('login_enqueue_scripts', 'enqueue_otp_scripts');
 
@@ -34,22 +38,40 @@ function add_otp_fields()
 {
 ?>
 <p>
-    <label for="phone_number">Phone Number<br>
-        <input type="text" name="phone_number" id="phone_number" class="input" value="" size="20"></label>
+    <label for="phone_number"><?php _e('Phone Number', 'twilio-sms') ?><br>
+        <input type="tel" name="phone_number" id="phone_number" class="input" value="" size="20"></label>
 </p>
-<p>
-    <button type="button" id="send_otp_button">Send OTP</button>
-</p>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    var input = document.querySelector("#phone_number");
+    window.intlTelInput(input, {
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch('https://ipinfo.io/json?token=YOUR_TOKEN_HERE')
+                .then(response => response.json())
+                .then(data => {
+                    var countryCode = (data && data.country) ? data.country : "us";
+                    callback(countryCode);
+                })
+                .catch(() => callback("us"));
+        },
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+    });
+});
+</script>
 <p>
     <label for="otp">OTP<br>
         <input type="text" name="otp" id="otp" class="input" value="" size="20"></label>
 </p>
 <p>
-    <button type="button" id="verify_otp_button">Verify OTP</button>
+    <button type="button" id="send_otp_button" class="button">Send OTP</button>
+    <button type="button" id="verify_otp_button" class="button">Verify OTP</button>
+
 </p>
 <?php
 }
 add_action('login_form', 'add_otp_fields');
+
 
 // AJAX handlers for sending and verifying OTP
 add_action('wp_ajax_send_otp', 'send_otp');
