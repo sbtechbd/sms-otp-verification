@@ -1,11 +1,18 @@
 <?php
 
 /**
+ * @package SMS_OTP_Verification
+ * @version 1.0
+ */
+
+
+/**
  * Plugin Name: SMS OTP Verification
  * Description: A plugin to send OTP via SMS for verification.
- * Version: 1.0
+ * Plugin URL: https://sbtechbd.xyz/
  * Author: Surata Debnath
- * Author Url:https://subrata6630.github.io 
+ * Author URL: https://subrata6630.github.io 
+ * Version: 1.0
  * Text Domain: sms-otp-verification
  */
 
