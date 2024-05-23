@@ -14,6 +14,7 @@
  * Author URL: https://subrata6630.github.io 
  * Version: 1.0
  * Text Domain: sms-otp-verification
+ * Domain Path: /languages
  */
 
 // Exit if accessed directly
@@ -31,6 +32,7 @@ define('OTP_EXPIRATION_TIME', 300); // 5 minutes
 
 // Include necessary files
 include_once(plugin_dir_path(__FILE__) . 'includes/admin-settings.php');
+include_once(plugin_dir_path(__FILE__) . 'includes/auto-updates.php');
 
 
 // Enqueue the scripts
@@ -49,7 +51,7 @@ function add_otp_fields()
 {
 ?>
 <p>
-    <label for="phone_number"><?php _e('Phone Number', 'twilio-sms') ?><br>
+    <label for="phone_number"><?php _e('Phone Number', 'sms-otp') ?><br>
         <input type="tel" name="phone_number" id="phone_number" class="input" value="" size="20"></label>
 </p>
 <script type="text/javascript">
@@ -156,3 +158,11 @@ function check_otp_on_login($user, $username, $password)
     }
 }
 add_filter('authenticate', 'check_otp_on_login', 30, 3);
+
+
+// Added languages
+
+add_action('plugins_loaded', 'load_my_plugin_textdomain');
+function load_my_plugin_textdomain() {
+    load_plugin_textdomain('your-textdomain', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+}

@@ -1,0 +1,27 @@
+{
+    "name": "sms-otp-verification",
+    "version": "1.0",
+    "author": "Subrata Debnath",
+    "slug": "sms-otp-verification",
+    "download_url": "https://example.com/path/to/your/plugin.zip",
+    "sections": {
+      "description": "A plugin to verify customers and send SMS notifications using Twilio.",
+      "changelog": "https://example.com/path/to/your/changelog.txt",
+      "installation": "https://example.com/path/to/your/installation.txt",
+      "screenshots": "https://example.com/path/to/your/screenshots.txt"
+    },
+    "requires": "5.5",
+    "tested": "5.9",
+    "last_updated": "2024-05-24",
+    "homepage": "https://example.com/path/to/your/plugin",
+    "downloaded": 1000,
+    "active_installs": 500,
+    "sections": {
+      "description": "A plugin to verify customers and send SMS notifications using Twilio.",
+      "changelog": "https://example.com/path/to/your/changelog.txt",
+      "installation": "https://example.com/path/to/your/installation.txt",
+      "screenshots": "https://example.com/path/to/your/screenshots.txt"
+    },
+    "auto_updates": true
+  }
+  

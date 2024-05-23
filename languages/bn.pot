@@ -1,0 +1,11 @@
+// Static text
+$welcome_message = __('Welcome to our plugin!', 'your-plugin-text-domain');
+
+// Echoed text
+_e('Click here to proceed', 'your-plugin-text-domain');
+
+// String with context
+$button_label = _x('Submit', 'Button label', 'your-plugin-text-domain');
+
+
+                \end{code}
